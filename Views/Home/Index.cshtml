@@ -45,18 +45,34 @@
         //   .catch(err=>console.log(`error：${err}`))
         //   .finally(()=>console.log("end"))
 
-       show("A")
-           .then(data => {
-               console.log(data);
-               return show("B");
-           })
-           .then(data => {
-               console.log(data);
-               return show("C");
-           })
-           .then(data => {
-               console.log(data);
-           })
+       // show("A")
+       //     .then(data => {
+       //         console.log(data);
+       //         return show("B");
+       //     })
+       //     .then(data => {
+       //         console.log(data);
+       //         return show("C");
+       //     })
+       //     .then(data => {
+       //         console.log(data);
+       //     })
+
+       //IIFE
+        //async await
+        //同步語法底層是非同步
+        (async() => {
+            let data = await show("A");
+            console.log(data);
+            data = await show("B");
+            console.log(data);
+            data = await show("C");
+            console.log(data);
+        })();
+
+
+       
+      
 
     </script>
 }
