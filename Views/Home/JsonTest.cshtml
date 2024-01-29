@@ -4,13 +4,17 @@
 }
 
 <h1>JsonTest</h1>
-<ul></ul>
+<ul id="ul1"></ul>
 
 @section Scripts{
-    <script>
+  
+    <script>      
+        const theUl = document.querySelector('#ul1');
+
         const emps =  [{ "name": "Tom", "workYears": 3, "salary": 35000 },
         { "name": "Jack", "workYears": 5, "salary": 40000 },
         { "name": "Mary", "workYears": 7, "salary": 45000 }];
+
         const emp = {
             "employees": [
                 { "name": "Tom", "workYears": 3, "salary": 35000 },
@@ -25,12 +29,29 @@
         // }
 
         //ES6 Array.method()  
-        emps.forEach(emp => {
-            console.log(emp.name)
-            console.log(emp.workYears)
-            console.log(emp.salary)               
-        })
+        // emps.forEach(emp => {
+        //     // console.log(emp.name)
+        //     // console.log(emp.workYears)
+        //     // console.log(emp.salary)             
+        //     //DOM
+        //     const eleLi = document.createElement("li");  //<li></li>
+        //     const txtLi = document.createTextNode(emp.name); //Mary
+        //     eleLi.appendChild(txtLi); //<li>Mary</li>
+        //     theUl.appendChild(eleLi); //<ul><li>Mary</li></ul>
+        // })
 
+       const liEmps = emps.map(emp =>`<li>${emp.name},${emp.workYears},${emp.salary}</li>`);
+
+        // const liEmps = emps.map(emp => {
+        //     const { name, workYears, salary } = emp;  //解構賦值 { "name": "Tom", "workYears": 3, "salary": 35000 }
+        //     return (
+        //         `
+        //               <li>${name},${workYears},${salary}</li>
+        //               `
+        //     )
+        // });
+       // console.log(liEmps.join(""));
+        theUl.innerHTML = liEmps.join("");
 
 
         // //emp => {}
