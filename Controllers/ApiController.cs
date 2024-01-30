@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MSIT155Site.Models;
+using MSIT155Site.Models.DTO;
 using System.Text;
 
 namespace MSIT155Site.Controllers
@@ -22,13 +23,14 @@ namespace MSIT155Site.Controllers
             return Content("Content 你好!!","text/plain",Encoding.UTF8);
         }
 
-        public IActionResult Register(string name, int age = 28)
+        //public IActionResult Register(string name, int age = 28)
+        public IActionResult Register(UserDTO _user)
         {
-            if(string.IsNullOrEmpty(name))
+            if(string.IsNullOrEmpty(_user.Name))
             {
-                name = "guest";
+                _user.Name = "guest";
             }
-            return Content($"Hello {name}, {age}歲了","text/plain", Encoding.UTF8);
+            return Content($"Hello {_user.Name}, {_user.Age}歲了, 電子郵件是 {_user.Email}","text/plain", Encoding.UTF8);
         }
 
         public IActionResult Cities() {           
