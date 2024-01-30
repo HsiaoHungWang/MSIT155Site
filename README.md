@@ -1,3 +1,3 @@
 # MSIT155Site
 
-[½Ğ¶ñ¼g§@·~ªºGitHub³sµ²](https://docs.google.com/spreadsheets/d/1faAxo-f0m9dwJdBFeUIsYVHAIHMiemHV0uNt4m3EWbA/edit?usp=sharing)
+[è«‹åˆ°Googleè¡¨å–®è¼¸å…¥ä½œæ¥­çš„GitHubé€£çµ](https://docs.google.com/spreadsheets/d/1faAxo-f0m9dwJdBFeUIsYVHAIHMiemHV0uNt4m3EWbA/edit?usp=sharing)
