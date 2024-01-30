@@ -14,6 +14,9 @@ namespace MSIT155Site.Controllers
 
         public IActionResult Index()
         {
+            //int x = 10;
+            //int y = 0;
+            //int z = x / y;
             return Content("Content 你好!!","text/plain",Encoding.UTF8);
         }
 
