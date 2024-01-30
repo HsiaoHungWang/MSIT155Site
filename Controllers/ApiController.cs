@@ -14,7 +14,7 @@ namespace MSIT155Site.Controllers
 
         public IActionResult Index()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(3000);
 
             //int x = 10;
             //int y = 0;
