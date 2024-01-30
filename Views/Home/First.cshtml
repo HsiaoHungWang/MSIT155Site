@@ -5,66 +5,64 @@
 
 <h1>First Ajax Demo</h1>
 <input type="button" class="btn btn-primary mb-3" value="Ajax 開始" id="buttonStart" />
+<img src="~/images/inlove.gif" style="display:none" id="img1" />
 <div class="alert alert-info" id="divInfo"></div>
 
 @section Scripts{
     <script>
         const btnStart = document.querySelector('#buttonStart');
         const divInfo = document.querySelector('#divInfo');
+        const imgLoader = document.querySelector('#img1');
 
         btnStart.addEventListener('click', async () => {
+                try {
+                    //顯示執行中的圖
+                    imgLoader.style.display = "inline";
+                    //disable button
+                    btnStart.setAttribute('disabled', 'disabled');
+                    btnStart.value = "執行中...";
 
-            try {
-                const response = await fetch('@Url.Content("~/api/index")');
-                if (!response.ok) {
-                    throw new Error(`${response.status}`);
+
+                    const response = await fetch('@Url.Content("~/api/index")');
+                    if (!response.ok) {
+                        throw new Error(`${response.status}`);
+                    }
+                    const data = await response.text();
+                    divInfo.innerHTML = `<h3>${data}</h3>`;
+                } catch (error) {
+                    divInfo.innerHTML = `<h3>${error.message}</h3>`;
+                }finally{
+                    console.log('finally');
+                    //隱藏執行中圖示
+                imgLoader.style.display = "none";
+                btnStart.removeAttribute('disabled');
+                btnStart.value = "Ajax 開始";
                 }
-                const data = await response.text();
-                divInfo.innerHTML = `<h3>${data}</h3>`;
-            } catch (error) {
-                divInfo.innerHTML = `<h3>${error}</h3>`;
-            }finally{
-                console.log('finally');
-            }
           
 
-
-
-
-
-
-            //ajax
+            // //ajax
             // console.log(fetch("/api/index"));
-            
-        //        fetch('@Url.Content("~/api/index")')
-        //         .then(response => {
-        //             //處理錯誤
-        //            try {
-        //                 if (!response.ok) {
-        //                      throw new Error(`有錯誤：${response.status}`);
-        //                 }
-
-        //                 console.log(response);  //{}
-        //                 //console.log(response.text());  //promise
-        //                 //讀取 response header 中的資料
-        //                 response.headers.forEach((value, name) => {
-        //                     console.log(`${name}：${value}`)
-        //                 })
-        //                 console.log(response.headers.get('Content-Length'));
-        //                 console.log(`OK: ${response.ok}`);
-        //                 console.log(`Status：${response.status}`);
-        //                 return response.text();  //從body中取文字資料    
-        //             } catch (error) {
-        //                console.log(error);
-        //         //divInfo.textContent = error;
-        // } finally {
-        //         console.log("finally");
-        // }
-        //         })
-        //         .then(data => {
-        //             console.log(data);
-        //             divInfo.innerHTML = `<h3>${data}</h3>`;
-        //         })
+            //    fetch('@Url.Content("~/api/index")')
+            //     .then(response => {
+            //         //處理錯誤                 
+            //             if (!response.ok) {
+            //                  throw new Error(`有錯誤：${response.status}`);
+            //             }
+            //             console.log(response);  //{}
+            //             //console.log(response.text());  //promise
+            //             //讀取 response header 中的資料
+            //             response.headers.forEach((value, name) => {
+            //                 console.log(`${name}：${value}`)
+            //             })
+            //             console.log(response.headers.get('Content-Length'));
+            //             console.log(`OK: ${response.ok}`);
+            //             console.log(`Status：${response.status}`);
+            //             return response.text();  //從body中取文字資料  
+            //     })
+            //     .then(data => {
+            //         console.log(data);
+            //         divInfo.innerHTML = `<h3>${data}</h3>`;
+            //     })
        
             
            
