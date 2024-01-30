@@ -5,14 +5,23 @@
 
 <h1>First Ajax Demo</h1>
 <input type="button" class="btn btn-primary mb-3" value="Ajax 開始" id="buttonStart" />
+<input type="button" class="btn btn-primary mb-3" value="Ajax 停止" id="buttonStop" />
 <img src="~/images/inlove.gif" style="display:none" id="img1" />
 <div class="alert alert-info" id="divInfo"></div>
 
 @section Scripts{
     <script>
         const btnStart = document.querySelector('#buttonStart');
+        const btnStop = document.querySelector('#buttonStop');
         const divInfo = document.querySelector('#divInfo');
         const imgLoader = document.querySelector('#img1');
+        let abortController;
+        //停止Ajax程式的執行
+        btnStop.addEventListener('click', () => {
+            if (abortController) {
+                abortController.abort();
+            }
+        })
 
         btnStart.addEventListener('click', async () => {
                 try {
@@ -22,15 +31,29 @@
                     btnStart.setAttribute('disabled', 'disabled');
                     btnStart.value = "執行中...";
 
+                    //取消非同步程式執行的設定
+                    abortController = new AbortController();
+                    const signal = abortController.signal;
 
-                    const response = await fetch('@Url.Content("~/api/index")');
+                    //5秒鐘沒有回傳結果就停止程式的執行
+                    setTimeout(() => {
+                        abortController.abort();
+                    },5000)
+
+                const response = await fetch('@Url.Content("~/api/index")', { signal });
                     if (!response.ok) {
                         throw new Error(`${response.status}`);
                     }
                     const data = await response.text();
                     divInfo.innerHTML = `<h3>${data}</h3>`;
                 } catch (error) {
-                    divInfo.innerHTML = `<h3>${error.message}</h3>`;
+                // console.log(error.name);
+                // console.log(error.message);
+                    let message = error.messsage;
+                if (error.name === "AbortError"){
+                    message = "伺服器忙碌中，請稍後再來"
+                }
+                    divInfo.innerHTML = `<h3>${message}</h3>`;
                 }finally{
                     console.log('finally');
                     //隱藏執行中圖示
