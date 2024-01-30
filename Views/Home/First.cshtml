@@ -17,11 +17,16 @@
             // console.log(fetch("/api/index"));
             fetch("/api/index")
                 .then(response => {
-                    console.log(response);
-                    console.log(response.text());
+                    console.log(response);  //{}
+                    //console.log(response.text());  //promise
+                    return response.text();  //從body中取文字資料
+                })
+                .then(data => {
+                    console.log(data);
+                    divInfo.innerHTML = `<h3>${data}</h3>`;
                 })
             
-            divInfo.innerHTML = "<h3>Ajax 開始</h3>";
+           
         })
 
 
