@@ -32,13 +32,34 @@
 
 @section Scripts{
     <script>
-        (async() => {
-         const url = '@Url.Content("~/api/register")?name=Tom&age=30&email=Tom@company.com';
-            const response = await fetch(url);
-            const data = await response.text();
-            console.log(data);
+        const btnSubmit = document.querySelector('#button1');
+        const txtName = document.querySelector('#userName');
+        const txtEmail = document.querySelector('#UserEmail');
+        const txtAge = document.querySelector('#userAge');
+        const divInfo = document.querySelector('#div1');
+
+        btnSubmit.addEventListener('click', async (event) => {
+            event.preventDefault(); //停止預設行為
+            // console.log(txtName.value);
+            // console.log(txtEmail.value);
+            // console.log(txtAge.value);
+
+            const url = `@Url.Content("~/api/register")?name=${txtName.value}&age=${txtAge.value}&email=${txtEmail.value}`;
+                const response = await fetch(url);
+                const data = await response.text();
+            divInfo.innerHTML = data;
+          
+        })
+
+
+
+        // (async() => {
+        //  const url = '@Url.Content("~/api/register")?name=Tom&age=30&email=Tom@company.com';
+        //     const response = await fetch(url);
+        //     const data = await response.text();
+        //     console.log(data);
         
-        })();
+        // })();
        
     </script>
 }

@@ -42,6 +42,7 @@ namespace MSIT155Site.Controllers
         //根據城市名稱讀取鄉鎮區
         public IActionResult District(string city)
         {
+           
             var districts = _context.Addresses.Where(a=>a.City == city).Select(a=>a.SiteId).Distinct();
             return Json(districts);
         }
