@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewData["Title"] = "Address";
+}
+
+<h1>Address</h1>
+<select id="selectCity">
+    <option value="1">Item1</option>
+    <option value="1">Item2</option>
+    <option value="1">Item3</option>
+</select>
+
+@section Scripts{
+<script>
+        const selCity = document.querySelector('#selectCity');
+
+    (async () => {
+        const url = '@Url.Content("~/api/cities")';
+        const response = await fetch(url);
+        const datas = await response.json();
+        //資料讀取  datas.forEach()  for(let i=0;i<datas.length;i++){}
+        //[{},{}]
+        const optCities = datas.map(city => `<option value=${city}>${city}</option>`);
+
+        //資料顯示
+        selCity.innerHTML = optCities.join("");
+
+       // const optCities =  datas.map(city => {
+       //      return(`<option value=${city}>${city}</option>`)
+       //  })
+    
+    })();
+</script>
+}
