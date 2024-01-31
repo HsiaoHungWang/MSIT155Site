@@ -33,10 +33,20 @@ namespace MSIT155Site.Controllers
             return Content($"Hello {_user.Name}, {_user.Age}歲了, 電子郵件是 {_user.Email}","text/plain", Encoding.UTF8);
         }
 
+        //讀取城市
         public IActionResult Cities() {           
            var cities = _context.Addresses.Select(a => a.City).Distinct();
             return Json(cities);
         }
+
+        //根據城市名稱讀取鄉鎮區
+        public IActionResult District(string city)
+        {
+            var districts = _context.Addresses.Where(a=>a.City == city).Select(a=>a.SiteId).Distinct();
+            return Json(districts);
+        }
+
+        //根據鄉鎮區名稱讀取路名
 
         public IActionResult Avatar(int id=1)
         {

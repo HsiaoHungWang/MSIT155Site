@@ -4,15 +4,15 @@
 }
 
 <h1>Address</h1>
-<select id="selectCity">
-    <option value="1">Item1</option>
-    <option value="1">Item2</option>
-    <option value="1">Item3</option>
+<select id="selectCity">  
+</select>
+<select id="selectDistrict">
 </select>
 
 @section Scripts{
 <script>
         const selCity = document.querySelector('#selectCity');
+        const selDistrict = document.querySelector('#selectDistrict');
 
     (async () => {
         const url = '@Url.Content("~/api/cities")';
@@ -20,15 +20,38 @@
         const datas = await response.json();
         //資料讀取  datas.forEach()  for(let i=0;i<datas.length;i++){}
         //[{},{}]
-        const optCities = datas.map(city => `<option value=${city}>${city}</option>`);
+        const optCities = datas.map(city => `<option value='${city}'>${city}</option>`);
 
         //資料顯示
         selCity.innerHTML = optCities.join("");
 
-       // const optCities =  datas.map(city => {
-       //      return(`<option value=${city}>${city}</option>`)
-       //  })
+        //載入鄉鎮區的資料
+        loadDistricts();
     
     })();
+
+     
+    const loadDistricts = async () => {
+        //讀取city名稱
+            // console.log(selCity.selectedIndex);
+            // console.log(selCity.options[selCity.selectedIndex].value);
+
+        const city = selCity.options[selCity.selectedIndex].value;
+        
+
+        const url = `@Url.Content("~/api/district")?city=${city}`;
+        const response = await fetch(url);
+        const datas = await response.json();
+        //讀取資料
+        const optDistricts = datas.map(district => `<option value='${district}'>${district}</option>`);
+     
+        //顯示資料
+        selDistrict.innerHTML = optDistricts.join("");
+    }
+
+
+
+        selCity.addEventListener('change', loadDistricts);
+
 </script>
 }
