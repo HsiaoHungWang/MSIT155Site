@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewData["Title"] = "Avatar";
+}
+
+<h1>Avatar</h1>
+<img id="img1" class="img-thumbnail w-25" />
+
+@section Scripts{
+    <script>
+        const avatar = document.querySelector('#img1');
+        (async() => {
+           // const url = '@Url.Content("~/api/avatar/3")';
+            const url = '@Url.Content("~/api/avatar")?id=4';
+            const response = await fetch(url);
+            const datas = await response.blob();
+            //顯示資料
+            avatar.src = URL.createObjectURL(datas);
+
+        
+        })();
+
+    </script>
+}
