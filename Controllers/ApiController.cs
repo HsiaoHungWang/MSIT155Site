@@ -148,8 +148,11 @@ namespace MSIT155Site.Controllers
             spots = spots.Skip((page-1)*pageSize).Take(pageSize);
 
 
+            SpotsPagingDTO spotsPaging = new SpotsPagingDTO();
+            spotsPaging.TotalPages = totalPages;
+            spotsPaging.SpotsResult = spots.ToList();
 
-            return Json(spots);
+            return Json(spotsPaging);
         }
 
     }

@@ -4,9 +4,15 @@
 }
 
 <h1>Spots</h1>
+<div class="row row-cols-1 row-cols-md-3 g-4" id="div1">
+ 
+  
+   
+</div>
 
 @section Scripts{
     <script>
+        const div1 = document.querySelector('#div1');
         const searchData = {
             "categoryId": 0,
             "keyword": "北投",
@@ -23,7 +29,29 @@
                 "headers": {"Content-Type":"application/json"}
             });
             const datas = await response.json();
-            console.log(datas);
+            console.log(datas.spotsResult);
+            //讀資料、顯示資料
+           const divSpots =  datas.spotsResult.map(spot=>{
+                const { spotId, spotTitle, spotImage, address, spotDescription } = spot;
+                return(`
+                           <div class="col">
+                <div class="card h-100">
+                    <img src="${spotImage}" class="card-img-top" alt="${spotTitle}">
+                    <div class="card-body">
+                      <h5 class="card-title">${spotTitle}</h5>
+                               <p class="card-text">${spotDescription.length <= 100 ? spotDescription : spotDescription.substring(0,100)}</p>
+                    </div>
+                    <div class="card-footer">
+                                <small class="text-body-secondary">${address}</small>
+                    </div>
+                </div>
+            </div>
+                
+                
+                `)
+            })
+       
+            div1.innerHTML = divSpots.join("");
         };
 
         loadSpots();
