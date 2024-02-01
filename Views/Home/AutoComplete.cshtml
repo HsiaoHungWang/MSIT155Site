@@ -7,16 +7,32 @@
 <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
-        <input type="search" class="form-control mb-3" />
-        <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                The current link item
-            </a>
-            <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-            <a href="#" class="list-group-item list-group-item-action">A third link item</a>
-            <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-            <a class="list-group-item list-group-item-action disabled" aria-disabled="true">A disabled link item</a>
-        </div>
+        <input type="search" class="form-control mb-3" id="inputSearch" />
+        <div class="list-group" id="divResult"></div>
     </div>
     <div class="col-3"></div>
 </div>
+
+@section Scripts{
+    <script>
+        const inpSearch = document.querySelector('#inputSearch');
+        const divResult = document.querySelector('#divResult');
+
+        inpSearch.addEventListener('input', async (event) => {
+           // console.log(event.target.value);
+            const response = await fetch(`@Url.Content("~/api/spottitle")?title=${event.target.value}`)
+            const datas = await response.json();
+
+            const atitles = datas.map(title => ` <a onclick="clickHandler('${title}')" href="#" class="list-group-item list-group-item-action">${title}</a>`);
+            divResult.innerHTML = atitles.join("");
+
+
+        })
+
+        const clickHandler = title => {
+            inpSearch.value = title;
+            divResult.innerHTML = "";
+
+        }
+    </script>
+}
