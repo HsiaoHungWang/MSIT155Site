@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
-        <form id="userForm">
+        <form id="userForm" enctype="">
             <div class="mb-3">
                 <label for="userName" class="form-label">姓名：</label>
                 <input type="text" class="form-control" id="userName" name="Name">
@@ -46,13 +46,20 @@
 
             //FormData
             const formData = new FormData(document.querySelector('#userForm'));
-            formData.append("key", "123");
+            // formData.append("key", "123");
             //讀取FormData中的資料
-            for (const pair of formData.entries()) {
-                console.log(pair[0]);
-                console.log(pair[1]);
-            }
-
+            // for (const pair of formData.entries()) {
+            //     console.log(pair[0]);
+            //     console.log(pair[1]);
+            // }
+            const url = '@Url.Content("~/api/register")';
+            const response = await fetch(url, {
+                "method":"POST",
+                "body":formData
+            });
+            const data = await response.text();
+            divInfo.innerHTML = data;
+          
 
             // const url = `@Url.Content("~/api/register")?name=${txtName.value}&age=${txtAge.value}&email=${txtEmail.value}`;
             //     const response = await fetch(url);
