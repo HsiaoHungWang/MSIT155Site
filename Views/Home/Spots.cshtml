@@ -4,6 +4,10 @@
 }
 
 <h1>Spots</h1>
+<nav aria-label="Page navigation example">
+    <ul class="pagination" id="ul1">     
+    </ul>
+</nav>
 <div class="row row-cols-1 row-cols-md-3 g-4" id="div1">
  
   
@@ -13,6 +17,7 @@
 @section Scripts{
     <script>
         const div1 = document.querySelector('#div1');
+        const ulPaging = document.querySelector('#ul1');
         const searchData = {
             "categoryId": 0,
             "keyword": "北投",
@@ -60,6 +65,12 @@
             }
             ulPaging.innerHTML = liPaging;
         };
+
+        const pagingHandler = page=>{
+            searchData.page = page;
+            loadSpots();
+        }
+
 
         loadSpots();
 
