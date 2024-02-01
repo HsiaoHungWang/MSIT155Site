@@ -4,19 +4,6 @@
 }
 
 <h1>Spots</h1>
-<div class="row">
-    <div class="col-3"></div>
-    <div class="col-6">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination" id="ul1">
-            </ul>
-        </nav>
-    </div>
-    <div class="col-3">
-        <input type="search" class="form-control" placeholder="景點搜尋" id="inputKeyword" />
-    </div>
-</div>
-
 <div class="row row-cols-1 row-cols-md-3 g-4" id="div1">
  
   
@@ -26,8 +13,6 @@
 @section Scripts{
     <script>
         const div1 = document.querySelector('#div1');
-        const ulPaging = document.querySelector('#ul1');
-        const inpKeyword = document.querySelector('#inputKeyword');
         const searchData = {
             "categoryId": 0,
             "keyword": "北投",
@@ -75,22 +60,6 @@
             }
             ulPaging.innerHTML = liPaging;
         };
-
-        //分頁
-        const pagingHandler = page=>{
-            searchData.page = page;
-            loadSpots();
-        }
-
-        //關鍵字搜尋
-        inpKeyword.addEventListener('keydown', event => {
-           // console.log(event.which); //Enter => 13
-            if (event.which === 13) {
-                searchData.keyword = event.target.value;
-                searchData.page = 1;
-                loadSpots();
-            }
-        })
 
         loadSpots();
 
