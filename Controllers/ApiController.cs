@@ -155,5 +155,11 @@ namespace MSIT155Site.Controllers
             return Json(spotsPaging);
         }
 
+        public IActionResult SpotTitle(string title)
+        {
+            var titles = _context.Spots.Where(s=>s.SpotTitle.Contains(title)).Select(s=>s.SpotTitle).Take(8);
+            return Json(titles);
+        }
+
     }
 }
