@@ -33,9 +33,9 @@
 @section Scripts{
     <script>
         const btnSubmit = document.querySelector('#button1');
-        const txtName = document.querySelector('#userName');
-        const txtEmail = document.querySelector('#UserEmail');
-        const txtAge = document.querySelector('#userAge');
+        // const txtName = document.querySelector('#userName');
+        // const txtEmail = document.querySelector('#UserEmail');
+        // const txtAge = document.querySelector('#userAge');
         const divInfo = document.querySelector('#div1');
 
         btnSubmit.addEventListener('click', async (event) => {
@@ -44,10 +44,20 @@
             // console.log(txtEmail.value);
             // console.log(txtAge.value);
 
-            const url = `@Url.Content("~/api/register")?name=${txtName.value}&age=${txtAge.value}&email=${txtEmail.value}`;
-                const response = await fetch(url);
-                const data = await response.text();
-            divInfo.innerHTML = data;
+            //FormData
+            const formData = new FormData(document.querySelector('#userForm'));
+            formData.append("key", "123");
+            //讀取FormData中的資料
+            for (const pair of formData.entries()) {
+                console.log(pair[0]);
+                console.log(pair[1]);
+            }
+
+
+            // const url = `@Url.Content("~/api/register")?name=${txtName.value}&age=${txtAge.value}&email=${txtEmail.value}`;
+            //     const response = await fetch(url);
+            //     const data = await response.text();
+            // divInfo.innerHTML = data;
           
         })
 
