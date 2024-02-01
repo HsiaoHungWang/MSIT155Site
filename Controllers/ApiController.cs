@@ -27,7 +27,8 @@ namespace MSIT155Site.Controllers
         }
 
         //public IActionResult Register(string name, int age = 28)
-       // public IActionResult Register(UserDTO _user)
+        // public IActionResult Register(UserDTO _user)
+        [HttpPost]
              public IActionResult Register(Member _user, IFormFile Avatar)
         {
             if(string.IsNullOrEmpty(_user.Name))
@@ -103,6 +104,13 @@ namespace MSIT155Site.Controllers
             }
 
             return NotFound();
+        }
+
+        //景點資料
+        [HttpPost]
+        public IActionResult Spots([FromBody]SearchDTO _search)
+        {
+            return Json(_search);
         }
 
     }
