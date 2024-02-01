@@ -4,6 +4,10 @@
 }
 
 <h1>Spots</h1>
+<nav aria-label="Page navigation example">
+    <ul class="pagination" id="ul1">     
+    </ul>
+</nav>
 <div class="row row-cols-1 row-cols-md-3 g-4" id="div1">
  
   
@@ -13,6 +17,7 @@
 @section Scripts{
     <script>
         const div1 = document.querySelector('#div1');
+        const ulPaging = document.querySelector('#ul1');
         const searchData = {
             "categoryId": 0,
             "keyword": "北投",
@@ -29,7 +34,7 @@
                 "headers": {"Content-Type":"application/json"}
             });
             const datas = await response.json();
-            console.log(datas.spotsResult);
+           // console.log(datas.spotsResult);
             //讀資料、顯示資料
            const divSpots =  datas.spotsResult.map(spot=>{
                 const { spotId, spotTitle, spotImage, address, spotDescription } = spot;
@@ -38,7 +43,7 @@
                 <div class="card h-100">
                     <img src="${spotImage}" class="card-img-top" alt="${spotTitle}">
                     <div class="card-body">
-                      <h5 class="card-title">${spotTitle}</h5>
+                      <h5 class="card-title">${spotId} - ${spotTitle}</h5>
                                <p class="card-text">${spotDescription.length <= 100 ? spotDescription : spotDescription.substring(0,100)}</p>
                     </div>
                     <div class="card-footer">
@@ -50,9 +55,22 @@
                 
                 `)
             })
-       
-            div1.innerHTML = divSpots.join("");
+           div1.innerHTML = divSpots.join("");
+
+           //分頁
+           // console.log(datas.totalPages);
+            let liPaging = "";
+            for (let i = 1, max = datas.totalPages; i <= max;i++){
+                liPaging += ` <li class="page-item" onclick="pagingHandler(${i})"><a class="page-link" href="#">${i}</a></li>`
+            }
+            ulPaging.innerHTML = liPaging;
         };
+
+        const pagingHandler = page=>{
+            searchData.page = page;
+            loadSpots();
+        }
+
 
         loadSpots();
 
